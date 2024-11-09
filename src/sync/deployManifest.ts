@@ -1,5 +1,5 @@
 import { writeFile } from "node:fs/promises";
-import { fsUtil } from "@standard/backend";
+import { fsUtil } from "@gozel-core/standard-js-backend";
 
 const keysToExclude = ["save", "load"];
 

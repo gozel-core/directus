@@ -4,7 +4,7 @@ import { rm, unlink, writeFile } from "node:fs/promises";
 import { pipeline } from "node:stream/promises";
 import { Readable } from "node:stream";
 import { createWriteStream } from "node:fs";
-import { fsUtil } from "@standard/backend";
+import { fsUtil } from "@gozel-core/standard-js-backend";
 import sharp from "sharp";
 import getSlug from "speakingurl";
 

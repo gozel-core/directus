@@ -5,7 +5,7 @@ import {
     readFiles,
 } from "@directus/sdk";
 import * as path from "node:path";
-import { fsUtil } from "@standard/backend";
+import { fsUtil } from "@gozel-core/standard-js-backend";
 import { MEDIA_DIR_NAME, MEDIA_MANIFEST_FILENAME } from "../../constants";
 import { sync } from "./sync";
 import { MediaManifest } from "./manifest";

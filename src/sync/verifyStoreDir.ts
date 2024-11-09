@@ -1,5 +1,5 @@
 import * as os from "node:os";
-import { fsUtil } from "@standard/backend";
+import { fsUtil } from "@gozel-core/standard-js-backend";
 import getSlug from "speakingurl";
 import { getExecName } from "../lib/getExecName";
 

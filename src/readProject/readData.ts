@@ -1,4 +1,4 @@
-import { fsUtil } from "@standard/backend";
+import { fsUtil } from "@gozel-core/standard-js-backend";
 import { deployManifest } from "../sync/deployManifest";
 
 export async function readData(): Promise<Record<string, unknown>> {
