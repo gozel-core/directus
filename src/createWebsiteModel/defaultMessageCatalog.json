@@ -1,0 +1,97 @@
+{
+    "maintenance_title": {
+        "en-US": "Be Right Back",
+        "tr-TR": "Hemen Döneceğiz",
+        "ru-RU": "Возвращайся сразу же"
+    },
+    "maintenance_description": {
+        "en-US": "We're making updates to the site, check back later, please.",
+        "tr-TR": "Bazı güncellemeler yapıyoruz. Lütfen daha sonra tekrar deneyin.",
+        "ru-RU": "Мы обновляем сайт, зайдите позже, пожалуйста."
+    },
+    "error": {
+        "en-US": "Error",
+        "tr-TR": "Hata",
+        "ru-RU": "ошибка"
+    },
+    "error_description": {
+        "en-US": "An unexpected error occurred. Try again later, please.",
+        "tr-TR": "Beklenmedik bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
+        "ru-RU": "Произошла непредвиденная ошибка. Повторите попытку позже, пожалуйста."
+    },
+    "reload_page": {
+        "en-US": "Reload page",
+        "tr-TR": "Sayfayı yeniden yükle",
+        "ru-RU": "Обновить страницу"
+    },
+    "locale_label_tr-TR": {
+        "en-US": "Türkçe",
+        "tr-TR": "Türkçe",
+        "ru-RU": "Türkçe"
+    },
+    "locale_label_en-US": {
+        "en-US": "English",
+        "tr-TR": "English",
+        "ru-RU": "English"
+    },
+    "locale_label_ru-RU": {
+        "en-US": "Русский",
+        "tr-TR": "Русский",
+        "ru-RU": "Русский"
+    },
+    "copyright": {
+        "en-US": "{legal_name} {year} © All rights reserved.",
+        "tr-TR": "{legal_name} {year} © Tüm Hakları Saklıdır.",
+        "ru-RU": "{legal_name} {year} © Все права защищены."
+    },
+    "change_region_offer_en-US": {
+        "en-US": "",
+        "tr-TR": "Would you like to view this page in {locale}",
+        "ru-RU": "Would you like to view this page in {locale}"
+    },
+    "change_region_offer_tr-TR": {
+        "en-US": "Bu sayfanın {locale} versiyonunu görüntülemek ister misiniz?",
+        "tr-TR": "",
+        "ru-RU": "Bu sayfanın {locale} versiyonunu görüntülemek ister misiniz?"
+    },
+    "change_region_offer_ru-RU": {
+        "en-US": "Хотите просмотреть эту страницу в {locale}?",
+        "tr-TR": "Хотите просмотреть эту страницу в {locale}?",
+        "ru-RU": ""
+    },
+    "share": {
+        "en-US": "Share",
+        "tr-TR": "Paylaş",
+        "ru-RU": "Делиться"
+    },
+    "site_title": {
+        "en-US": "",
+        "tr-TR": "",
+        "ru-RU": ""
+    },
+    "back_to_home": {
+        "en-US": "Back to home",
+        "tr-TR": "Anasayfa'ya dön",
+        "ru-RU": "Назад на домашнюю страницу"
+    },
+    "go_back": {
+        "en-US": "Go back",
+        "tr-TR": "Geri dön",
+        "ru-RU": "Вернуться на предыдущую страницу"
+    },
+    "please_wait": {
+        "en-US": "Please wait",
+        "tr-TR": "Lütfen bekleyin",
+        "ru-RU": "пожалуйста, подождите"
+    },
+    "address": {
+        "en-US": "Address",
+        "tr-TR": "Adres",
+        "ru-RU": "адрес"
+    },
+    "email": {
+        "en-US": "Email",
+        "tr-TR": "E-posta",
+        "ru-RU": "Электронная почта"
+    }
+}
