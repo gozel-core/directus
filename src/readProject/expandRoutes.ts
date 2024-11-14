@@ -31,8 +31,8 @@ export async function expandRoutes(
     ] as PageComponentRelation[];
     const routes = data["routes"] as RouteItem[];
     const dir = (await fsUtil.isFileExists(path.join(execDir, "src")))
-        ? path.join(execDir, "src", "directus-data")
-        : path.join(execDir, "directus-data");
+        ? path.join(execDir, "src", "data", project)
+        : path.join(execDir, "data", project);
 
     await fsUtil.verifyDir(dir, true);
 
