@@ -9,10 +9,10 @@ import path from "node:path";
 import { deployManifest } from "../sync/deployManifest";
 
 export async function expandRoutes(
-    storePath: string,
     data: Record<string, unknown>,
     execDir: string,
     project: string,
+    savePath: string,
 ) {
     const keysToExclude = [
         "id",
@@ -30,9 +30,7 @@ export async function expandRoutes(
         "pagesComponents"
     ] as PageComponentRelation[];
     const routes = data["routes"] as RouteItem[];
-    const dir = (await fsUtil.isFileExists(path.join(execDir, "src")))
-        ? path.join(execDir, "src", "data", project)
-        : path.join(execDir, "data", project);
+    const dir = path.join(execDir, savePath);
 
     await fsUtil.verifyDir(dir, true);
 
@@ -46,7 +44,7 @@ export async function expandRoutes(
             JSON.stringify(_routes),
         );
         console.log(
-            `- Generated and saved "${path.join(dir, `route.${language.code}.json`)}"`,
+            `- Generated and saved "${path.resolve(execDir, path.join(dir, `route.${language.code}.json`))}"`,
         );
     }
 

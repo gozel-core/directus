@@ -47,12 +47,22 @@ program
     .command("read-project")
     .requiredOption(
         "-p, --project <string>",
-        "Project code in deploy_settings model.",
+        "Project code in deploy_settings.",
     )
     .option(
         "-s, --store <string>",
-        "Path to store all the data.",
+        "Path to the general store.",
         `[user-home]/directus-sync/[project]`,
+    )
+    .option(
+        "--save-path",
+        "The path to save the json files in your project.",
+        "src/data/[project]",
+    )
+    .option(
+        "--static-path",
+        "The path where files reserved for static serving in your project.",
+        "public",
     )
     .action(async (options: ReadProjectCmdOpts) => {
         await readProject(options);

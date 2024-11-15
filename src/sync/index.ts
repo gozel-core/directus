@@ -16,6 +16,9 @@ import { deployManifest } from "./deployManifest";
 export async function sync(opts: SyncCmdOpts) {
     console.log(`Directus sync began.`);
 
+    if (!process.env.APP_URL)
+        throw new Error("The env var APP_URL needs to be set.");
+
     const client = await getDirectusClient();
     const deploySettings = await fetchDeploySettings(client, opts.project);
     const collectionNames = genCollectionNames(

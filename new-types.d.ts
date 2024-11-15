@@ -26,6 +26,8 @@ declare global {
     interface ReadProjectCmdOpts {
         project: string
         store: string
+        staticPath: string
+        savePath: string
     }
 
     type RefDirectusClient =  DirectusClient<RefSchema> & StaticTokenClient<RefSchema> & RestClient<RefSchema>
