@@ -18,7 +18,7 @@ export async function readProject(opts: ReadProjectCmdOpts) {
     const storePath = await verifyStoreDir(opts.store, opts.project);
     await deployManifest.load(path.join(storePath, DEPLOY_MANIFEST_FILENAME));
     const data = await readData();
-    await expandRoutes(data, execDir, opts.project, opts.savePath);
+    await expandRoutes(data, execDir, opts.savePath);
     await copyMedia(storePath, opts.staticPath);
     await copyEssentialData(storePath, opts.savePath);
     await copyWebsiteData(storePath, opts.staticPath);

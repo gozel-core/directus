@@ -11,7 +11,6 @@ import { deployManifest } from "../sync/deployManifest";
 export async function expandRoutes(
     data: Record<string, unknown>,
     execDir: string,
-    project: string,
     savePath: string,
 ) {
     const keysToExclude = [

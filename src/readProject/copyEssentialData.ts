@@ -26,7 +26,7 @@ export async function copyEssentialData(storePath: string, savePath: string) {
             return business;
         });
         await writeFile(
-            path.join(dest, "business.json"),
+            path.join(dest, "businesses.json"),
             JSON.stringify(_business),
         );
     }
