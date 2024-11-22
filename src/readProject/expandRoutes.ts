@@ -30,28 +30,76 @@ export async function expandRoutes(
     ] as PageComponentRelation[];
     const routes = data["routes"] as RouteItem[];
     const dir = path.join(execDir, savePath);
+    const routeComponents: Record<string, any>[] = [];
+    const _routesByLocale: Record<string, RouteItemExpanded[]> = {};
 
     await fsUtil.verifyDir(dir, true);
 
     for (const language of languages) {
-        const expandingRoutes = await Promise.all(
-            routes.map(async (route) => await expandRouteItem(route, language)),
-        );
-        const _routes = expandingRoutes.filter((route) => route);
-        await writeFile(
-            path.join(dir, `route.${language.code}.json`),
-            JSON.stringify(_routes),
-        );
-        console.log(
-            `- Generated and saved "${path.resolve(execDir, path.join(dir, `route.${language.code}.json`))}"`,
-        );
+        const expandRouteJobs = routes.map(async (route) => {
+            const r = await expandRouteItem(route, language);
+            if (r) {
+                const obj: Record<string, any> = {
+                    path: r.path,
+                    component: r.component,
+                };
+                if (r.routingIdentifiers?.includes("NOT_FOUND"))
+                    obj["isNotFound"] = true;
+                routeComponents.push(obj);
+            }
+            return r;
+        });
+        _routesByLocale[language.code] = (
+            await Promise.all(expandRouteJobs)
+        ).filter((route) => route) as RouteItemExpanded[];
     }
+
+    const routesByLocale = Object.keys(_routesByLocale).reduce(
+        (memo: typeof _routesByLocale, _locale) => {
+            memo[_locale] = _routesByLocale[_locale]!.map((r) => {
+                const otherLocales = Object.keys(_routesByLocale).filter(
+                    (l) => l !== _locale,
+                );
+                r.localVersions = otherLocales
+                    .map((l) => {
+                        if (!_routesByLocale[l]) return;
+                        const _r = _routesByLocale[l].find(
+                            (_r) => _r.id === r.id,
+                        );
+                        if (!_r) return;
+                        return {
+                            locale: l,
+                            url: process.env.APP_URL + _r.path,
+                        };
+                    })
+                    .filter((_r) => _r !== undefined);
+                return r;
+            });
+            return memo;
+        },
+        {},
+    );
+
+    const jobs = Object.keys(routesByLocale).map(async (_locale) => {
+        await writeFile(
+            path.join(dir, `pages.${_locale}.json`),
+            JSON.stringify(routesByLocale[_locale]),
+        );
+        console.log(`- Generated and saved pages.${_locale}.json`);
+    });
+    await Promise.all(jobs);
+
+    await writeFile(
+        path.join(dir, "routes.json"),
+        JSON.stringify(routeComponents),
+    );
+    console.log(`- Generated and saved routes.json`);
 
     async function expandRouteItem(
         item: RouteItem,
         language: LanguagesCollection,
-    ) {
-        if (!item.paths[language.code]) return undefined;
+    ): Promise<RouteItemExpanded | undefined> {
+        if (!item.paths[language.code]) return Promise.resolve(undefined);
 
         const routeDefaultKeys = [
             "id",
@@ -83,7 +131,7 @@ export async function expandRoutes(
 
         if (!translation) return undefined;
 
-        const result: Record<string, unknown> = {
+        const result: RouteItemExpanded = {
             id: item.id,
             published: Object.hasOwn(translation, "status")
                 ? translation.status === "published"
@@ -92,7 +140,7 @@ export async function expandRoutes(
             serd: item.search_engine_robots_directives,
             component: item.frontend_component,
             parent: item.navigation_parent,
-            path: item.paths[language.code],
+            path: item.paths[language.code]!,
             breadcrumb: item.breadcrumb,
             title: translation.title,
             excerpt: translation.excerpt,
@@ -386,6 +434,26 @@ export async function expandRoutes(
         }
     }
 }
+
+type RouteItemExpanded = {
+    id: number;
+    published: boolean;
+    sort: number;
+    serd: string[];
+    component: string;
+    parent: number | null;
+    path: string;
+    breadcrumb: number[];
+    title: string;
+    excerpt: string;
+    slug: string;
+    components: any[];
+    canonicalUrl?: string;
+    cover?: any;
+    routingIdentifiers?: string[];
+    localVersions?: { locale: string; url: string }[];
+    [index: string]: any;
+};
 
 type RouteItem = PagesCollection & {
     paths: Record<string, string>;
