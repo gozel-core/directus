@@ -7,6 +7,7 @@ import {
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
 import { deployManifest } from "../sync/deployManifest";
+import { MEDIA_DIR_NAME } from "../constants";
 
 export async function expandRoutes(
     data: Record<string, unknown>,
@@ -282,7 +283,7 @@ export async function expandRoutes(
                 if (preset === "original") return memo;
                 memo[preset] = {
                     s: media[preset]!.size,
-                    path: media[preset]!.path,
+                    path: "/" + MEDIA_DIR_NAME + media[preset]!.path,
                     w: media[preset]!.width!,
                     h: media[preset]!.height!,
                     ar: media[preset]!.aspectRatio!,
