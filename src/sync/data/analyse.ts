@@ -90,12 +90,12 @@ export function analyseData(data: RefData, modelAnalysis: ModelAnalysis) {
     const websiteSettings = modelAnalysis.websiteSettingsCollection
         ? (data[
               modelAnalysis.websiteSettingsCollection.collection
-          ] as SettingsCollection)
+          ] as SettingsCollection[])
         : undefined;
 
     return {
         mediaIds: mediaIdsUniq,
-        websiteSettings,
+        websiteSettings: websiteSettings ? websiteSettings[0] : undefined,
     };
 }
 

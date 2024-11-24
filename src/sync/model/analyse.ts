@@ -242,8 +242,7 @@ export function analyseModel(
         : undefined;
 
     const websiteSettingsCollection = model.collections.find(
-        ({ collection, meta }) =>
-            meta.singleton && collection.endsWith("settings"),
+        ({ collection, meta }) => collection.endsWith("settings"),
     );
 
     return {
