@@ -190,13 +190,9 @@ declare global {
         project: string
         table_prefix: string | null
         robots_txt: string | null
-        directus_uploads_public_folder: string
-        media_manifest_dir: string
-        source_public_dir: string
-        source_svelte_routes_filepath: string
-        source_robotstxt_config_filepath: string
         custom_resolvers: CustomFieldResolver[]
         collections: string[]
+        media_presets: string[]
     }
 
     interface CustomFieldResolver {

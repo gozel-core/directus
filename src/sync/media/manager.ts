@@ -16,6 +16,7 @@ export async function initMediaManager(
     client: RefDirectusClient,
     model: RefDataModel,
     dataAnalysis: DataAnalysis,
+    deploySettings: DeploySettings,
 ) {
     console.log(`Media manager init.`);
 
@@ -44,10 +45,18 @@ export async function initMediaManager(
     await manifest.init();
 
     console.log(`Synchronise entries with the file system.`);
+    if (!deploySettings.media_presets) {
+        throw new Error(`Missing media presets in deploy settings.`);
+    }
+    const mediaPresets = model.directusSettings
+        .storage_asset_presets!.map(({ key }) => key)
+        .filter((key) => deploySettings.media_presets.includes(key));
     await sync(
         manifest,
         dataAnalysis.mediaIds,
-        model.directusSettings.storage_asset_presets,
+        model.directusSettings.storage_asset_presets!.filter(({ key }) =>
+            mediaPresets.includes(key),
+        ),
         files,
     );
 

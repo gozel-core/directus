@@ -35,6 +35,7 @@ export async function sync(opts: SyncCmdOpts) {
         client,
         model,
         dataAnalysis,
+        deploySettings,
     );
     const _formattedData = await formatData(
         storePath,
