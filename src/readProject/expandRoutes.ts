@@ -240,7 +240,7 @@ export async function expandRoutes(
                     return memo;
                 },
                 {
-                    _component: name.replace("component", ""),
+                    _component: name.split(/[Cc]omponent/)[1],
                 },
             );
     }
