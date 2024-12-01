@@ -410,7 +410,7 @@ export async function expandRoutes(
                         deployManifest["namespace"]!,
                     ),
                 )
-            ]!.filter((_item) => value.includes(_item[intermediate.column]));
+            ]!.filter((_item) => value.includes(_item[foreign.column]));
             const intermediateIds = intermediateItems
                 .filter((_item) => _item[intermediate.junction])
                 .map((_item) =>
