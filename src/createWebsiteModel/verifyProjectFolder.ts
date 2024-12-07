@@ -1,22 +1,22 @@
-import {
-    createCollection,
-    type DirectusCollection,
-    readCollections,
-} from "@directus/sdk";
+import { createCollection, type DirectusCollection } from "@directus/sdk";
 
 export async function verifyProjectFolder(
     client: RefDirectusClient,
     namespace: string,
+    existingCollections: DirectusCollection[],
 ): Promise<DirectusCollection<RefSchema>> {
     console.log(`Verifying project folder...`);
 
-    const list = await client.request(readCollections());
-    const has = list.some(({ collection }) => collection === namespace);
+    const has = existingCollections.some(
+        ({ collection }) => collection === namespace,
+    );
 
     if (has) {
         console.log(`Verifying project folder... Done.`);
 
-        return list.find(({ collection }) => collection === namespace)!;
+        return existingCollections.find(
+            ({ collection }) => collection === namespace,
+        )!;
     }
 
     const config = {

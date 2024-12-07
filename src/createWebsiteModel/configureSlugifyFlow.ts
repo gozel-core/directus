@@ -35,10 +35,10 @@ export async function configureSlugifyFlow(
 
     const updatedCollections = existingCollections.concat([collection]);
 
-    // @ts-ignore
     await client.request(
         updateFlow(
             flow.id,
+            // @ts-ignore
             Object.assign({}, flow, {
                 options: Object.assign({}, flow.options, {
                     collections: updatedCollections,

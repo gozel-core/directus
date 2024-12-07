@@ -1,5 +1,6 @@
 import type {
-    DirectusClient, StaticTokenClient, RestClient, DirectusCollection, DirectusRelation, DirectusSettings, DirectusField
+    DirectusClient, StaticTokenClient, RestClient, DirectusCollection, DirectusRelation, DirectusSettings,
+    DirectusField, UnpackList
 } from '@directus/sdk'
 
 declare global {
@@ -18,7 +19,7 @@ declare global {
     }
 
     interface CreateWebsiteModelCmdOpts {
-        supportedLocales: string[]
+        supportedLocale: string[]
         namespace: string
         owner: string
     }
@@ -216,6 +217,30 @@ declare global {
         id: number
         languages_code: string
         [index: string]: unknown
+    }
+
+    type Operation = OperationCreateCollection | OperationCreateField | OperationCreateRelation | OperationDeleteRelation
+    type OperationCreateCollection = {
+        name: 'CREATE_COLLECTION'
+        recipe: NestedPartial<DirectusCollection>
+    }
+    type OperationCreateField = {
+        name: 'CREATE_FIELD'
+        recipe: NestedPartial<DirectusField>
+    }
+    type OperationCreateRelation = {
+        name: 'CREATE_RELATION'
+        recipe: NestedPartial<DirectusRelation>
+    }
+    type OperationDeleteRelation = {
+        name: 'DELETE_RELATION'
+        recipe: {
+            field: string
+        }
+    }
+
+    type NestedPartial<Item extends object> = {
+        [Key in keyof Item]?: NonNullable<Item[Key]> extends infer NestedItem ? NestedItem extends object[] ? NestedPartial<UnpackList<NestedItem>>[] | Exclude<Item[Key], NestedItem> : NestedItem extends object ? NestedPartial<NestedItem> | Exclude<Item[Key], NestedItem> : Item[Key] : Item[Key];
     }
 }
 

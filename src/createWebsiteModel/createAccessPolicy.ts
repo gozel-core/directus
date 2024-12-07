@@ -5,19 +5,26 @@ import {
     deletePolicies,
     readPermissions,
 } from "@directus/sdk";
+import { collections } from "./domains/index";
 
 export async function createAccessPolicy(
     client: RefDirectusClient,
     namespace: string,
-    collections: string[],
 ) {
+    const collectionNames = Object.keys(collections)
+        .map((k) =>
+            collections[k as keyof typeof collections].getCollectionNames(
+                namespace,
+            ),
+        )
+        .reduce((arr, memo) => memo.concat(arr), []);
     const label = prettyNamespace(namespace);
 
     console.log(`Configuring access policy (${label})...`);
 
     const existingPermissions = await client.request(readPermissions());
     const has = existingPermissions.some((perm) =>
-        collections.includes(perm.collection),
+        collectionNames.includes(perm.collection),
     );
 
     if (has) {
@@ -26,7 +33,7 @@ export async function createAccessPolicy(
         );
 
         const permsToRemove = existingPermissions.filter((perm) =>
-            collections.includes(perm.collection),
+            collectionNames.includes(perm.collection),
         );
         const policiesToRemove = permsToRemove
             .map((perm) => perm.policy as string)
@@ -57,16 +64,19 @@ export async function createAccessPolicy(
         }),
     );
 
-    const permissions = collections.reduce((memo: string[][], collection) => {
-        memo = memo.concat([
-            [collection, "create"],
-            [collection, "read"],
-            [collection, "update"],
-            [collection, "delete"],
-            [collection, "share"],
-        ]);
-        return memo;
-    }, []);
+    const permissions = collectionNames.reduce(
+        (memo: string[][], collection) => {
+            memo = memo.concat([
+                [collection, "create"],
+                [collection, "read"],
+                [collection, "update"],
+                [collection, "delete"],
+                [collection, "share"],
+            ]);
+            return memo;
+        },
+        [],
+    );
 
     for (const permission of permissions) {
         const _action = permission[1]!;

@@ -211,7 +211,9 @@ export async function expandRoutes(
                         ).find(
                             (__tItem) =>
                                 __tItem[
-                                    deployManifest["translationJunctionField"]!
+                                    deployManifest[
+                                        "translationJunctionFieldComponent"
+                                    ]!
                                 ] ===
                                 language[deployManifest["languageCodeField"]!],
                         );

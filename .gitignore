@@ -2,6 +2,7 @@
 **/dist-ssr
 **/.infisical.json
 **/.svelte-kit
+src/data
 
 .idea
 

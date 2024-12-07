@@ -13,7 +13,7 @@ const program = new Command();
 program.name(getExecName()).description(pkg.description).version(pkg.version);
 
 program
-    .command("sync", { isDefault: true })
+    .command("fetch-project", { isDefault: true })
     .requiredOption(
         "-p, --project <string>",
         "Project code in deploy_settings model.",
@@ -35,7 +35,7 @@ program
     .command("create-website-model")
     .requiredOption("--namespace <string>", "A prefix of database tables.")
     .requiredOption(
-        "--supported-locales <string...>",
+        "--supported-locale <string...>",
         'List of supported locales. Each formatted as "xx-XX".',
     )
     .option("--owner <string>", "User uuid for the ownership of data.")
