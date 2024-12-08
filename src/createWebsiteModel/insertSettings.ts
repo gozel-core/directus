@@ -1,4 +1,4 @@
-import { createItem, updateItem } from "@directus/sdk";
+import { createItem, readItems, updateItem } from "@directus/sdk";
 
 export async function insertSettings(
     client: RefDirectusClient,
@@ -12,6 +12,21 @@ export async function insertSettings(
         maintenance_mode: false,
         search_engine_indexing: true,
     };
+
+    if (owner) {
+        const existingItems = await client.request(
+            readItems(name, {
+                filter: {
+                    user_created: owner,
+                },
+            }),
+        );
+        if (existingItems.length > 0) {
+            console.log(`Settings already exists.`);
+            console.log(`Inserting settings... Done.`);
+            return existingItems[0];
+        }
+    }
 
     try {
         const item = await client.request(createItem(name, data));
