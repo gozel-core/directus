@@ -23,6 +23,14 @@ export async function insertLocales(
             }));
 
         if (updatedData.length === 0) {
+            if (owner) {
+                const ids = (existingItems as { id: number }[]).map(
+                    (item) => item.id,
+                );
+                await client.request(
+                    updateItems(name, ids, { user_created: owner }),
+                );
+            }
             console.log(`Inserting locales: items already exists.`);
             return existingItems;
         }

@@ -13,11 +13,18 @@ export function getCollectionNames(namespace: string) {
     const collectionName = getName(namespace);
     const collectionNameTranslations = collectionName + "_translations";
     const collectionNameComponents = collectionName + "_components";
+    const componentList = Object.keys(components)
+        .map((k) =>
+            components[k as keyof typeof components].getCollectionNames(
+                namespace,
+            ),
+        )
+        .reduce((memo, arr) => memo.concat(arr), []);
     return [
         collectionName,
         collectionNameTranslations,
         collectionNameComponents,
-    ];
+    ].concat(componentList);
 }
 
 export function getRecipe(

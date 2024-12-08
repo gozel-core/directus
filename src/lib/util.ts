@@ -20,3 +20,7 @@ export function extractRawCollectionName(name: string, namespace: string) {
 export function buildCollectionName(name: string, namespace: string) {
     return (namespace ? namespace + "_" : "") + name;
 }
+
+export async function wait(timeout: number) {
+    return new Promise((res) => setTimeout(() => res(undefined), timeout));
+}

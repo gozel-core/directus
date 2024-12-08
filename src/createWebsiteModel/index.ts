@@ -28,7 +28,7 @@ export async function createWebsiteModel(options: CreateWebsiteModelCmdOpts) {
         publicFolder,
         existingCollections,
     );
-    await createAccessPolicy(client, options.namespace);
+    await createAccessPolicy(client, options.namespace, options.owner);
     await configureSlugifyFlow(
         client,
         `${options.namespace}_pages_translations`,

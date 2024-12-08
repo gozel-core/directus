@@ -6,6 +6,7 @@ import {
     type DirectusCollection,
     type DirectusFolder,
 } from "@directus/sdk";
+import { wait } from "../lib/util";
 import { collections } from "./domains/index";
 
 export async function createCollections(
@@ -73,8 +74,4 @@ export async function createCollections(
             await wait(300);
         }
     }
-}
-
-async function wait(timeout: number) {
-    return new Promise((res) => setTimeout(() => res(undefined), timeout));
 }

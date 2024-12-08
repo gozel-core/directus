@@ -211,16 +211,21 @@ export async function expandRoutes(
                         ).find(
                             (__tItem) =>
                                 __tItem[
-                                    deployManifest[
-                                        "translationJunctionFieldComponent"
-                                    ]!
+                                    deployManifest["translationJunctionField"]!
                                 ] ===
                                 language[deployManifest["languageCodeField"]!],
                         );
                         if (!_tItem) return memo;
 
                         Object.keys(_tItem)
-                            .filter((_k) => !keysToExclude.includes(_k))
+                            .filter(
+                                (_k) =>
+                                    !keysToExclude.includes(_k) &&
+                                    deployManifest[
+                                        "translationJunctionField"
+                                    ] !== _k &&
+                                    relation.collection + "_id" !== _k,
+                            )
                             .map(
                                 (_k) =>
                                     (memo[_k] = resolveField(
